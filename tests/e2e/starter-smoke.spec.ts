@@ -26,8 +26,12 @@ test('ready-made screens render their main heading', async ({ page }) => {
 
 test('dashboard shell and command palette navigate between screens', async ({
   page,
+  isMobile,
 }) => {
   await page.goto('/')
+  if (isMobile) {
+    await page.getByRole('button', { name: 'Toggle sidebar' }).click()
+  }
   await expect(
     page.getByRole('navigation', { name: 'Main navigation' }),
   ).toBeVisible()
