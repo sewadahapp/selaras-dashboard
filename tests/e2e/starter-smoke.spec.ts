@@ -35,6 +35,9 @@ test('dashboard shell and command palette navigate between screens', async ({
   await expect(
     page.getByRole('navigation', { name: 'Main navigation' }),
   ).toBeVisible()
+  if (isMobile) {
+    await page.keyboard.press('Escape')
+  }
   await expect(
     page.getByRole('heading', { level: 1, name: 'Workspace overview' }),
   ).toBeVisible()
