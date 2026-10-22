@@ -113,7 +113,9 @@ If you use pnpm, Yarn, or Bun, run Playwright's install command and the build/te
 
 ## Deploy and share
 
-For a Node deployment, run `npm run build`, then `node .output/server/index.mjs`. Set `NITRO_HOST` and `NITRO_PORT` as needed. Static hosting uses `npm run generate` and `.output/public`; verify your host's route fallback and 404 handling before publishing. Replace `npm run` with your chosen package manager's script command if needed.
+For a Node deployment, run `npm run build`, then `node .output/server/index.mjs`. Set `NITRO_HOST` and `NITRO_PORT` as needed. Static hosting uses `npm run generate` and `.output/public`.
+
+The included GitHub Actions workflow deploys that static output to GitHub Pages after each push or merge to `main`; you can also run it manually from the Actions tab. In the repository settings, set **Pages → Build and deployment → Source** to **GitHub Actions**. The workflow detects the Pages base path, so project sites served from `/<repository>/` load their routes and assets correctly. Replace `npm run` with your chosen package manager's script command if needed.
 
 ## References
 

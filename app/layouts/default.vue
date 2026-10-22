@@ -3,6 +3,7 @@ import { settingsSections } from '~/data/settings'
 const config = useAppConfig()
 const route = useRoute()
 const colorMode = useColorMode()
+const runtimeConfig = useRuntimeConfig()
 useHead({ htmlAttrs: { class: 'dashboard-page' } })
 const sidebar = useTemplateRef('sidebar')
 const commandPalette = useCommandPalette()
@@ -17,11 +18,13 @@ const workspaceInitials = computed(
       .join('')
       .toUpperCase() || 'W',
 )
-const selarasLogo = computed(() =>
-  colorMode.value === 'dark'
-    ? '/selaras-logo-dark.svg'
-    : '/selaras-logo-light.svg',
-)
+const selarasLogo = computed(() => {
+  const logo =
+    colorMode.value === 'dark'
+      ? 'selaras-logo-dark.svg'
+      : 'selaras-logo-light.svg'
+  return `${runtimeConfig.app.baseURL}${logo}`
+})
 const workspaceItems = computed(() => [
   [{ label: settings.value.name, icon: 'hugeicons:tick-02' }],
   [

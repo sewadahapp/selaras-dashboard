@@ -6,8 +6,21 @@ export default defineNuxtConfig({
   modules: ['@sewadah/selaras', '@nuxt/eslint'],
   css: ['~/assets/css/main.css'],
   nitro: {
-    // Route-backed tab buttons do not expose links to the prerender crawler.
-    prerender: { routes: settingsSections.map((section) => section.to) },
+    // Composite navigation does not expose every route to the prerender crawler.
+    prerender: {
+      routes: [
+        ...new Set([
+          '/',
+          '/analytics',
+          '/customers',
+          '/editor',
+          '/login',
+          '/register',
+          '/forgot-password',
+          ...settingsSections.map((section) => section.to),
+        ]),
+      ],
+    },
   },
   icon: {
     serverBundle: { collections: ['hugeicons'] },
@@ -36,6 +49,7 @@ export default defineNuxtConfig({
     },
   },
   app: {
+    baseURL: process.env.NUXT_APP_BASE_URL || '/',
     head: {
       title: 'Selaras Dashboard',
       meta: [
@@ -44,7 +58,13 @@ export default defineNuxtConfig({
           content: 'A Nuxt 4 dashboard starter built with Selaras, TanStack Charts, and Tiptap.',
         },
       ],
-      link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
+      link: [
+        {
+          rel: 'icon',
+          type: 'image/svg+xml',
+          href: `${process.env.NUXT_APP_BASE_URL || '/'}favicon.svg`,
+        },
+      ],
       htmlAttrs: { lang: 'en' },
     },
   },
