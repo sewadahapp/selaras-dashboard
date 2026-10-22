@@ -101,7 +101,7 @@ npm run generate     # Static output in .output/public
 
 Use your package manager's equivalent `run` syntax for these scripts. The `test` and `check` scripts use Bun's unit-test runner, so those two scripts require Bun (`bun run test` and `bun run check`).
 
-For browser tests, install Chromium once, then build and test:
+For the browser smoke checks, install Chromium once, then build and test:
 
 ```sh
 npx playwright install chromium
@@ -109,7 +109,7 @@ npm run build
 npm run test:e2e
 ```
 
-If you use pnpm, Yarn, or Bun, run Playwright's install command and the build/test scripts through that manager. Playwright exercises desktop and mobile Chromium. CI uses `bun install --frozen-lockfile`, installs browser system dependencies, and runs the same checks.
+The Playwright smoke checks open every ready-made screen and verify the dashboard shell and command-palette navigation on desktop and mobile Chromium. They are intended to catch starter setup or Selaras integration regressions; they do not lock down the demo's detailed interactions. CI runs them after lint, typecheck, unit tests, and a production build. If you use pnpm, Yarn, or Bun, run Playwright's install command and the build/test scripts through that manager.
 
 ## Deploy and share
 
